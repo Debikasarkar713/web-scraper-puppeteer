@@ -2,7 +2,12 @@ const puppeteer = require("puppeteer");
 
 async function scrapeProduct(url) {
   //method launches instance of browser
-  const browser = await puppeteer.launch();
+  //If you don't want to use chromium use a file path to your chrome
+  // To find the path open up chrome and paste chrome://version/
+  const browser = await puppeteer.launch({
+    executablePath:
+      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  });
   //puppeteer creates a new page in the browser
   const page = await browser.newPage();
   try {
@@ -16,13 +21,10 @@ async function scrapeProduct(url) {
   const name = await el.evaluate(() => {
     return document.querySelector("h1").textContent;
   });
-  //   const h1Title = await el.getProperty("h1");
-  //   const h1text = await h1Title.jsonValue();
+
   console.log({ name });
 
   browser.close();
 }
 
 scrapeProduct("https://finance.yahoo.com/quote/AAPL?p=AAPL");
-
-//need to add path to chrome after removing chromium
