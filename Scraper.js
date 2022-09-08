@@ -15,9 +15,7 @@ async function scrapeProduct(url) {
     console.log("absolutely not");
   }
   await page.goto(url);
-  const [el] = await page.$x(
-    '//*[@id="quote-header-info"]/div[2]/div[1]/div[1]/h1'
-  );
+  const [el] = await page.$x('//*[@id="quote-header-info"]');
   const name = await el.evaluate(() => {
     return document.querySelector("h1").textContent;
   });
